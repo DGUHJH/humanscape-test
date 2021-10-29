@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Todo from 'components/Todo';
 import { ReducerType } from 'features';
 import { TodoInitialStateType } from 'features/todo/todoSlice';
@@ -25,13 +24,6 @@ const Main = () => {
       ))}
     </Styled.Root>
   );
-=======
-import React from 'react';
-import * as Styled from './styled';
-
-const Main = () => {
-  return <Styled.Root></Styled.Root>;
->>>>>>> eaef5761303bd5542937c4a497e7e448bafd4895
 };
 
 export default Main;
