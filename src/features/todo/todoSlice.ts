@@ -18,6 +18,9 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
+    onTodoListCreate: (state, action) => {
+      state.todoListData = action.payload.todo;
+    },
     onTodoCreate: (state) => {
       state.todoListData.push({
         id: `todo_${state.todoListData.length}`,
@@ -47,7 +50,12 @@ export const todoSlice = createSlice({
   },
 });
 
-export const { onTodoCreate, onTodoChange, onTodoDelete, onTodoToggle } =
-  todoSlice.actions;
+export const {
+  onTodoCreate,
+  onTodoChange,
+  onTodoDelete,
+  onTodoToggle,
+  onTodoListCreate,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
