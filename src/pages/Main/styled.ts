@@ -8,6 +8,8 @@ export const Root = styled.div`
 
 export const TitleTypo = styled.h1``;
 
+export const DescriptionTypo = styled.h4``;
+
 export const AddButton = styled.button`
   width: 150px;
 `;

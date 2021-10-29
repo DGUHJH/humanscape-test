@@ -15,6 +15,9 @@ const Main = () => {
   return (
     <Styled.Root>
       <Styled.TitleTypo>투두리스트</Styled.TitleTypo>
+      <Styled.DescriptionTypo>
+        클릭 : 수정, input 엔터 : 수정 완료, - 버튼 : delete, 버튼 : toggle
+      </Styled.DescriptionTypo>
       {todo.todoListData?.map((todoData, index: number) => (
         <Todo
           id={todoData.id}
