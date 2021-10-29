@@ -1,16 +1,33 @@
 import Todo from 'components/Todo';
 import { ReducerType } from 'features';
-import { onTodoCreate, TodoInitialStateType } from 'features/todo/todoSlice';
-import React from 'react';
+import {
+  onTodoCreate,
+  onTodoListCreate,
+  TodoInitialStateType,
+} from 'features/todo/todoSlice';
+import React, { useEffect } from 'react';
+import { Cookies } from 'react-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Styled from './styled';
 
 const Main = () => {
+  const cookies = new Cookies();
   const dispatch = useDispatch();
   const todo = useSelector<ReducerType, TodoInitialStateType>(
     (state) => state.todo
   );
   const onAddButtonClick = () => dispatch(onTodoCreate());
+
+  useEffect(() => {
+    console.log(cookies.get('todo'));
+    if (cookies.get('todo')) {
+      dispatch(onTodoListCreate({ todo: cookies.get('todo') }));
+    }
+  }, []);
+
+  useEffect(() => {
+    cookies.set('todo', JSON.stringify(todo.todoListData));
+  }, [JSON.stringify(todo.todoListData)]);
 
   return (
     <Styled.Root>
