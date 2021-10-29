@@ -21,7 +21,7 @@ export const todoSlice = createSlice({
     onTodoCreate: (state) => {
       state.todoListData.push({
         id: `todo_${state.todoListData.length}`,
-        value: '',
+        value: '입력해주세요.',
         isDone: false,
       });
     },
@@ -40,13 +40,14 @@ export const todoSlice = createSlice({
     onTodoToggle: (state, action) => {
       state.todoListData = state.todoListData.map((todoData) =>
         todoData.id === action.payload.id
-          ? { ...todoData, done: !todoData.isDone }
+          ? { ...todoData, isDone: !todoData.isDone }
           : todoData
       );
     },
   },
 });
 
-export const { onTodoCreate, onTodoChange, onTodoDelete } = todoSlice.actions;
+export const { onTodoCreate, onTodoChange, onTodoDelete, onTodoToggle } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;
