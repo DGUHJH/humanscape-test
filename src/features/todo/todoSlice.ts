@@ -34,7 +34,7 @@ export const todoSlice = createSlice({
     },
     onTodoDelete: (state, action) => {
       state.todoListData = state.todoListData.filter(
-        (todoData) => (todoData.id = action.payload.id)
+        (todoData) => todoData.id !== action.payload.id
       );
     },
     onTodoToggle: (state, action) => {
