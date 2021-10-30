@@ -13,6 +13,7 @@ import * as Styled from './styled';
 const Main = () => {
   const [editSearch, setEditSearch] = useState<string>('');
   const [search, setSearch] = useState<string>('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const todo = useSelector<ReducerType, TodoInitialStateType>(
@@ -37,6 +38,7 @@ const Main = () => {
 
   useEffect(() => {
     cookies.set('todo', JSON.stringify(todo.todoListData));
+    setSelectedTags([]);
   }, [JSON.stringify(todo.todoListData)]);
 
   const tagList = () => {
@@ -51,14 +53,25 @@ const Main = () => {
     );
   };
 
+  const onTagClick = (tag: string) => () => {
+    if (selectedTags.indexOf(tag) !== -1) {
+      setSelectedTags((prev) => prev.filter((tagValue) => tagValue !== tag));
+    } else {
+      setSelectedTags((prev) => [...prev, tag]);
+    }
+  };
   return (
     <Styled.Root>
       <Styled.TitleTypo>투두리스트</Styled.TitleTypo>
       <Styled.TagTitleTypo>태그</Styled.TagTitleTypo>
       <Styled.TagContainer>
         {tagList().map((tag, index: number) => (
-          <Styled.TagWrapper key={`tag_wrapper_${index}`}>
-            {tag}
+          <Styled.TagWrapper
+            isSelected={selectedTags.indexOf(tag) !== -1}
+            onClick={onTagClick(tag)}
+            key={`tag_wrapper_${index}`}
+          >
+            #{tag}
           </Styled.TagWrapper>
         ))}
       </Styled.TagContainer>
@@ -79,6 +92,10 @@ const Main = () => {
       </Styled.DescriptionTypo>
       {todo.todoListData?.map(
         (todoData, index: number) =>
+          (selectedTags.length === 0 ||
+            todoData.tags.filter(
+              (tag) => selectedTags.indexOf(tag.value) !== -1
+            ).length !== 0) &&
           (search === '' || todoData.value.indexOf(search) !== -1) && (
             <Todo
               id={todoData.id}

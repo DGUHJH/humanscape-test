@@ -48,7 +48,15 @@ export const todoSlice = createSlice({
               ) + 1
             : 1
         }`,
-        value: '입력해주세요.',
+        value: `투두_${
+          state.todoListData.length !== 0
+            ? Number(
+                state.todoListData[state.todoListData.length - 1].id.split(
+                  'todo_'
+                )[1]
+              ) + 1
+            : 1
+        }`,
         isDone: false,
         tags: [{ id: 'tag_0', value: '태그_0' }],
       });
