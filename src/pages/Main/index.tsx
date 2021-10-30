@@ -39,9 +39,29 @@ const Main = () => {
     cookies.set('todo', JSON.stringify(todo.todoListData));
   }, [JSON.stringify(todo.todoListData)]);
 
+  const tagList = () => {
+    let tagListData: string[] = [];
+
+    todo.todoListData.forEach((todoData) =>
+      todoData.tags.forEach((tag) => tagListData.push(tag.value))
+    );
+
+    return tagListData.filter(
+      (tag, index) => tagListData.indexOf(tag) === index
+    );
+  };
+
   return (
     <Styled.Root>
       <Styled.TitleTypo>투두리스트</Styled.TitleTypo>
+      <Styled.TagTitleTypo>태그</Styled.TagTitleTypo>
+      <Styled.TagContainer>
+        {tagList().map((tag, index: number) => (
+          <Styled.TagWrapper key={`tag_wrapper_${index}`}>
+            {tag}
+          </Styled.TagWrapper>
+        ))}
+      </Styled.TagContainer>
       <Styled.SearchContainer>
         <Styled.SearchEditor
           onKeyPress={onSearchEnterPress}
