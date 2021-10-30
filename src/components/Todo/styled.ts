@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 export const Root = styled.div`
   display: flex;
+  flex-direction: column;
+`;
+
+export const TodoContainer = styled.div`
+  display: flex;
   align-items: center;
 `;
 
@@ -22,3 +27,8 @@ export const Editor = styled.input`
 `;
 
 export const Button = styled.button``;
+
+export const TagsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

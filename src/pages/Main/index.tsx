@@ -54,8 +54,8 @@ const Main = () => {
         </Styled.SearchEditorButton>
       </Styled.SearchContainer>
       <Styled.DescriptionTypo>
-        클릭 : 수정, input 엔터 : 수정 완료, - 버튼 : delete, &#10003; 버튼 :
-        toggle
+        클릭 : 수정, input 엔터 : 수정 완료, + 버튼 : 태그 추가, - 버튼 :
+        delete, &#10003; 버튼 : toggle
       </Styled.DescriptionTypo>
       {todo.todoListData?.map(
         (todoData, index: number) =>
@@ -64,11 +64,12 @@ const Main = () => {
               id={todoData.id}
               isDone={todoData.isDone}
               value={todoData.value}
+              tags={todoData.tags}
               key={`todo_${index}`}
             />
           )
       )}
-      <Styled.AddButton onClick={onAddButtonClick}>추가</Styled.AddButton>
+      <Styled.AddButton onClick={onAddButtonClick}>todo 추가</Styled.AddButton>
     </Styled.Root>
   );
 };

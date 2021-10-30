@@ -1,9 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export type Tag = {
+  id: string;
+  value: string;
+};
+
 export type TodoData = {
   id: string;
   value: string;
   isDone: boolean;
+  tags: Tag[];
 };
 
 export type TodoInitialStateType = {
@@ -11,7 +17,14 @@ export type TodoInitialStateType = {
 };
 
 const initialState: TodoInitialStateType = {
-  todoListData: [{ id: 'todo_0', value: 'test', isDone: false }],
+  todoListData: [
+    {
+      id: 'todo_0',
+      value: 'test',
+      isDone: false,
+      tags: [{ id: 'tag_0', value: 'test' }],
+    },
+  ],
 };
 
 export const todoSlice = createSlice({
@@ -26,6 +39,7 @@ export const todoSlice = createSlice({
         id: `todo_${state.todoListData.length}`,
         value: '입력해주세요.',
         isDone: false,
+        tags: [],
       });
     },
     onTodoChange: (state, action) => {
@@ -47,6 +61,39 @@ export const todoSlice = createSlice({
           : todoData
       );
     },
+    onTodoTagCreate: (state, action) => {
+      state.todoListData = state.todoListData.map((todoData) =>
+        todoData.id === action.payload.id
+          ? {
+              ...todoData,
+              tags: [
+                ...todoData.tags,
+                {
+                  id: `tag_${todoData.tags.length}`,
+                  value: `태그__${todoData.tags.length}`,
+                },
+              ],
+            }
+          : todoData
+      );
+    },
+    onTodoTagDelete: (state, action) => {
+      state.todoListData = state.todoListData.map((todoData) =>
+        todoData.id === action.payload.id
+          ? {
+              ...todoData,
+              tags: todoData.tags.filter((tag) => tag !== action.payload.tagId),
+            }
+          : todoData
+      );
+    },
+    onTodoTagChange: (state, action) => {
+      state.todoListData = state.todoListData.map((todoData) =>
+        todoData.id === action.payload.id
+          ? { ...todoData, value: action.payload.value }
+          : todoData
+      );
+    },
   },
 });
 
@@ -56,6 +103,9 @@ export const {
   onTodoDelete,
   onTodoToggle,
   onTodoListCreate,
+  onTodoTagCreate,
+  onTodoTagDelete,
+  onTodoTagChange,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
