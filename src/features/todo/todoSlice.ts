@@ -95,7 +95,14 @@ export const todoSlice = createSlice({
     onTodoTagChange: (state, action) => {
       state.todoListData = state.todoListData.map((todoData) =>
         todoData.id === action.payload.id
-          ? { ...todoData, value: action.payload.value }
+          ? {
+              ...todoData,
+              tags: todoData.tags.map((tag) =>
+                tag.id === action.payload.tagId
+                  ? { ...tag, value: action.payload.value }
+                  : tag
+              ),
+            }
           : todoData
       );
     },
