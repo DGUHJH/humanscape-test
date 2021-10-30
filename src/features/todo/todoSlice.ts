@@ -39,10 +39,18 @@ export const todoSlice = createSlice({
     },
     onTodoCreate: (state) => {
       state.todoListData.push({
-        id: `todo_${state.todoListData.length}`,
+        id: `todo_${
+          state.todoListData.length !== 0
+            ? Number(
+                state.todoListData[state.todoListData.length - 1].id.split(
+                  'todo_'
+                )[1]
+              ) + 1
+            : 1
+        }`,
         value: '입력해주세요.',
         isDone: false,
-        tags: [],
+        tags: [{ id: 'tag_0', value: '태그_0' }],
       });
     },
     onTodoChange: (state, action) => {
@@ -72,8 +80,24 @@ export const todoSlice = createSlice({
               tags: [
                 ...todoData.tags,
                 {
-                  id: `tag_${todoData.tags.length}`,
-                  value: `태그__${todoData.tags.length}`,
+                  id: `tag_${
+                    todoData.tags.length !== 0
+                      ? Number(
+                          todoData.tags[todoData.tags.length - 1].id.split(
+                            'tag_'
+                          )[1]
+                        ) + 1
+                      : 1
+                  }`,
+                  value: `태그_${
+                    todoData.tags.length !== 0
+                      ? Number(
+                          todoData.tags[todoData.tags.length - 1].id.split(
+                            'tag_'
+                          )[1]
+                        ) + 1
+                      : 1
+                  }`,
                 },
               ],
             }
