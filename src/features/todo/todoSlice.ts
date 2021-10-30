@@ -22,7 +22,10 @@ const initialState: TodoInitialStateType = {
       id: 'todo_0',
       value: 'test',
       isDone: false,
-      tags: [{ id: 'tag_0', value: 'test' }],
+      tags: [
+        { id: 'tag_0', value: 'test' },
+        { id: 'tag_1', value: 'test2' },
+      ],
     },
   ],
 };
@@ -82,7 +85,9 @@ export const todoSlice = createSlice({
         todoData.id === action.payload.id
           ? {
               ...todoData,
-              tags: todoData.tags.filter((tag) => tag !== action.payload.tagId),
+              tags: todoData.tags.filter(
+                (tag) => tag.id !== action.payload.tagId
+              ),
             }
           : todoData
       );

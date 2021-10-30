@@ -9,6 +9,7 @@ export const Root = styled.div`
 export const ValueTypo = styled.span`
   width: 130px;
   height: 20px;
+  cursor: pointer;
 `;
 
 export const Editor = styled.input`
